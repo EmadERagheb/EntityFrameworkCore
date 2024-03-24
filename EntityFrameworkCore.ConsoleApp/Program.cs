@@ -54,6 +54,7 @@ namespace EntityFrameworkCore.ConsoleApp
           //  Console.WriteLine(context.ChangeTracker.DebugView.LongView);
 
             var Q11= await context.Coachs.Where(q=>q.Id==1).ExecuteDeleteAsync();
+            var Q12 = await context.Coachs.Where(q => q.Id == 2).ExecuteUpdateAsync(set => set.SetProperty(prop => prop.Name , "Emad"));
 
 
 
