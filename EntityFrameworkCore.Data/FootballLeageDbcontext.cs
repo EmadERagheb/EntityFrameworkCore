@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkCore.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace EntityFrameworkCore.Data
 {
@@ -22,10 +23,12 @@ namespace EntityFrameworkCore.Data
         public DbSet<Team> Teams { get; set; }
 
         public DbSet<Coach> Coachs { get; set; }
+        public DbSet<Match> Matchs { get; set; }
+        public DbSet<League> Leagues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Team>().HasData(new TeamList().Teams);
+          modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

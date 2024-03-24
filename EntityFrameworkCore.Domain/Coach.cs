@@ -2,8 +2,12 @@
 {
     public class Coach:BaseDomainModel
     {
-        public int Id { get; set; }
+        #region Column
+       
         public string Name { get; set; }
+        
+        public int TeamId { get; set; }
+        #endregion
 
     }
 }
