@@ -18,14 +18,14 @@ namespace EntityFrameworkCore.ConsoleApp
             using FootballLeageDbcontext context = new FootballLeageDbcontext();
 
             GetAllTeams(context);
-            //var T01 = await context.Teams.FirstOrDefaultAsync();
-            //Console.WriteLine(T01.Name);
-            //var T02 = await context.Teams.Where(q=>EF.Functions.Like(q.Name,"%F.M%")).ToListAsync();
-            //foreach (var item in T02)
-            //{
-            //     Console.WriteLine(item.Name);
+            var T01 = await context.Teams.FirstOrDefaultAsync();
+            Console.WriteLine(T01.Name);
+            var T02 = await context.Teams.Where(q => EF.Functions.Like(q.Name, "%F.M%")).ToListAsync();
+            foreach (var item in T02)
+            {
+                Console.WriteLine(item.Name);
 
-            //}
+            }
             var T03 = await context.Teams.MaxAsync(q => q.Id);
             Console.WriteLine(T03);
             var T05 = context.Teams.Max(q => q.Id);
