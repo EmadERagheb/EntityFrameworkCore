@@ -7,7 +7,8 @@
 
         public int AwayTeamId { get; set; }
         public decimal TicketPrice { get; set; }
-
+        public int AwayTeamScore { get; set; }
+        public int HomeTeamScore { get; set; }
         public DateTime Date { get; set; }
         #endregion
         #region Relations
@@ -16,14 +17,14 @@
         //total relationShip
         // HomeTeamID
         //navigation Property
-        public Team HomeTeam { get; set; }
+        public  virtual Team HomeTeam { get; set; }
         #endregion  
         #region AwayTeam-Match
         //Match   has one AwayTeam
         //total relationShip
         // AwayTeamID
         //navigation Property
-        public Team AwayTeam { get; set; }
+        public virtual Team AwayTeam { get; set; }
         #endregion
         #endregion
     }

@@ -19,29 +19,29 @@
         //optional relationship
         //column LeagueId
         //navigation Property
-        public League? League { get; set; }
+        public virtual League? League { get; set; }
 
         #endregion
         #region HomeTeam-Match
-        //Home Team  has many Maches
+        //Home Team  has many Matches
         //total relationShip
-        // nocolumn
+        // no column
         //navigation Property
-        public List<Match> HomeTeamMatches { get; set; }= new List<Match>();    
+        public virtual List<Match> HomeTeamMatches { get; set; }= new List<Match>();    
         #endregion  
         #region AwayTeam-Match
-        //Away Team  has many Maches
+        //Away Team  has many Matches
         //total relationShip
-        // nocolumn
+        // no column
         //navigation Property
-        public List<Match> AwayTeamMatches { get; set; } = new List<Match>();
+        public virtual List<Match> AwayTeamMatches { get; set; } = new List<Match>();
         #endregion
-        #region Team-Coash
+        #region Team-Coach
         //Team must have One Coach
         //Required
         //column CoachID
-        //Navication Property
-        public Coach Coach { get; set; }
+        //Navigation Property
+        public virtual Coach Coach { get; set; }
         #endregion
         #endregion
     }

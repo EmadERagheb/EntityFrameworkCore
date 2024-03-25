@@ -14,7 +14,7 @@
         //optional
         //nocolumn
         //navigation Property
-        public Team? Team { get; set; } 
+        public virtual Team? Team { get; set; } 
         #endregion
         #endregion
 
