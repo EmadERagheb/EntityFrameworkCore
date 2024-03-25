@@ -6,7 +6,16 @@
        
         public string Name { get; set; }
         
-        public int TeamId { get; set; }
+    
+        #endregion
+        #region Relations
+        #region Team-Coach
+        //Coach may have one Team
+        //optional
+        //nocolumn
+        //navigation Property
+        public Team? Team { get; set; } 
+        #endregion
         #endregion
 
     }

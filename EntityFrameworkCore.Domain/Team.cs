@@ -9,6 +9,7 @@
         public int? LeagueId { get; set; }
 
         public int CoachId { get; set; }
+
         #endregion
 
 
@@ -26,14 +27,21 @@
         //total relationShip
         // nocolumn
         //navigation Property
-        public List<Match> HomeTeamMatches { get; set; }
+        public List<Match> HomeTeamMatches { get; set; }= new List<Match>();    
         #endregion  
         #region AwayTeam-Match
         //Away Team  has many Maches
         //total relationShip
         // nocolumn
         //navigation Property
-        public List<Match> AwayTeamMatches { get; set; }
+        public List<Match> AwayTeamMatches { get; set; } = new List<Match>();
+        #endregion
+        #region Team-Coash
+        //Team must have One Coach
+        //Required
+        //column CoachID
+        //Navication Property
+        public Coach Coach { get; set; }
         #endregion
         #endregion
     }
