@@ -15,7 +15,8 @@ namespace EntityFrameworkCore.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=Emad;Initial Catalog=FootballLeague;Integrated Security=True;Encrypt=True;Trust Server Certificate=True")
-                //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+               //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+               .UseLazyLoadingProxies()
                 .LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableDetailedErrors()
                 .EnableSensitiveDataLogging();

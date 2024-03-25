@@ -4,6 +4,7 @@ using EntityFrameworkCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,16 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCore.Data.Migrations
 {
     [DbContext(typeof(FootballLeageDbcontext))]
-    partial class FootballLeageDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240325013313_OneToOneRS")]
+    partial class OneToOneRS
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.3")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -175,9 +175,6 @@ namespace EntityFrameworkCore.Data.Migrations
                     b.Property<int>("AwayTeamId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AwayTeamScore")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -188,9 +185,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("HomeTeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HomeTeamScore")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TicketPrice")
