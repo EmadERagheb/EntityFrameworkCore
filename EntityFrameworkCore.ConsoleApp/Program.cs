@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCore.Data;
 using EntityFrameworkCore.Domain;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkCore.ConsoleApp
@@ -182,11 +183,27 @@ namespace EntityFrameworkCore.ConsoleApp
             //teams.ForEach(t => Console.WriteLine(t)); 
             #endregion
             #region Query View
-            var TeamLeagueViewData = await context.TeamLeagueView.ToListAsync();
-            foreach (var record in TeamLeagueViewData)
-            {
-                Console.WriteLine(record);
-            }
+            //var TeamLeagueViewData = await context.TeamLeagueView.ToListAsync();
+            //foreach (var record in TeamLeagueViewData)
+            //{
+            //    Console.WriteLine(record);
+            //}
+            #endregion
+            #region Sql Queries
+           //var teamName= Console.ReadLine();
+           // var teamNamePrameter = new SqlParameter("teamName",teamName);
+           // var teams = context.Teams.FromSqlRaw($"select * from Teams where Name=@teamName", teamNamePrameter);
+           // Console.WriteLine(teams.FirstOrDefault().Name);
+
+           // var teamName = Console.ReadLine();
+           //var teams = context.Teams.FromSql($"select * from Teams where Name='{teamName}'");
+           // Console.WriteLine(teams.FirstOrDefault().Name);
+
+           // var teamName = Console.ReadLine();
+           //var teams = context.Teams.FromSqlInterpolated($"select * from Teams where Name='{teamName}'");
+           // Console.WriteLine(teams.FirstOrDefault().Name);
+
+            var success= context.Database.ExecuteSqlInterpolated($"update Teams set name='Ereen'where id =5");
             #endregion
 
         }
