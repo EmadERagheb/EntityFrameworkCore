@@ -221,10 +221,23 @@ namespace EntityFrameworkCore.ConsoleApp
             //var team= context.Teams.AsEnumerable()
             //Console.WriteLine(team.Name);
             #region Overriding SaveChange 
-             await InsertCoach(context);
-            
-            #endregion
+            //await InsertCoach(context);
 
+            #endregion
+            var HistoryTeam = await context.Teams.TemporalAll()
+                .Where(q=>q.Id==5)
+                .Select(q=> new
+                {
+                    Name=q.Name,
+                    ValueFrom=EF.Property<DateTime>(q, "PeriodStart"),
+                    ValueTo = EF.Property<DateTime>(q, "PeriodEnd")
+                })
+                .ToListAsync();
+
+                foreach (var team in HistoryTeam)
+            {
+                Console.WriteLine($"{team.Name} |   From    {team.ValueFrom}    |   To  {team.ValueTo}");
+            }
         }
 
         static async Task InsertCoach(FootballLeageDbcontext context)

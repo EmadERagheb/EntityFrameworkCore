@@ -10,7 +10,7 @@ namespace EntityFrameworkCore.Data
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
+                    .AddJsonFile(@"F:\MyWork\EF Remmber\EntityFrameworkCore\EntityFrameworkCore.WebAPIApp\appsettings.json")
                     .Build();
             var optionBuilder = new DbContextOptionsBuilder<FootballLeageDbcontext>();
             optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));

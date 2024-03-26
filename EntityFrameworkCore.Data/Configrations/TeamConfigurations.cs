@@ -17,6 +17,7 @@ namespace EntityFrameworkCore.Data.Configrations
             builder.HasMany(t=>t.AwayTeamMatches)
                 .WithOne(m=>m.AwayTeam).HasForeignKey(m=>m.AwayTeamId)
                 .IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.ToTable("Teams", q => q.IsTemporal());
             builder.HasData(new TeamList().Teams);
         }
     }
