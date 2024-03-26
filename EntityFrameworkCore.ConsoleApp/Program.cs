@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCore.Data;
 using EntityFrameworkCore.Domain;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkCore.ConsoleApp
@@ -150,33 +151,60 @@ namespace EntityFrameworkCore.ConsoleApp
             //    }
             //}
             #endregion
-           //await InsertMaches(context);
-           //var Teams = await context.Teams.
-           //     Include(t=>t.HomeTeamMatches.Where(h=>h.HomeTeamScore>0))
-           //     .Include(t=>t.Coach)
-           //     .ToListAsync();
-           // foreach(var team in Teams)
-           // {
-           //     Console.WriteLine($"Team Name-{team.Name}\n" +
-           //         $" Coach Name-{team.Coach.Name}\n");
-           //     foreach(var match in team.HomeTeamMatches)
-           //     {
-           //         Console.WriteLine($"Home Scores -{match.HomeTeamScore}");
-           //     }
-           //     Console.WriteLine("******************");
-                    
-           // }
-           var teams = await context.Teams
-                .Select(q=>new TeamDetails
-                {
-                     TeamId = q.Id,
-                     TeamName= q.Name,
-                     CoachName=q.Coach.Name,
-                     TotalAwayScore=q.AwayTeamMatches.Sum(x=>x.AwayTeamScore),
-                     TotalHomeScore=q.HomeTeamMatches.Sum(x=>x.HomeTeamScore)
-                })
-                .ToListAsync();
-            teams.ForEach(t => Console.WriteLine(t));
+            #region MyRegion
+            //await InsertMaches(context);
+            //var Teams = await context.Teams.
+            //     Include(t=>t.HomeTeamMatches.Where(h=>h.HomeTeamScore>0))
+            //     .Include(t=>t.Coach)
+            //     .ToListAsync();
+            // foreach(var team in Teams)
+            // {
+            //     Console.WriteLine($"Team Name-{team.Name}\n" +
+            //         $" Coach Name-{team.Coach.Name}\n");
+            //     foreach(var match in team.HomeTeamMatches)
+            //     {
+            //         Console.WriteLine($"Home Scores -{match.HomeTeamScore}");
+            //     }
+            //     Console.WriteLine("******************");
+
+            // } 
+            #endregion
+            #region Use Projection To Get Data
+            //var teams = await context.Teams
+            //      .Select(q => new TeamDetails
+            //      {
+            //          TeamId = q.Id,
+            //          TeamName = q.Name,
+            //          CoachName = q.Coach.Name,
+            //          TotalAwayScore = q.AwayTeamMatches.Sum(x => x.AwayTeamScore),
+            //          TotalHomeScore = q.HomeTeamMatches.Sum(x => x.HomeTeamScore)
+            //      })
+            //      .ToListAsync();
+            //teams.ForEach(t => Console.WriteLine(t)); 
+            #endregion
+            #region Query View
+            //var TeamLeagueViewData = await context.TeamLeagueView.ToListAsync();
+            //foreach (var record in TeamLeagueViewData)
+            //{
+            //    Console.WriteLine(record);
+            //}
+            #endregion
+            #region Sql Queries
+           //var teamName= Console.ReadLine();
+           // var teamNamePrameter = new SqlParameter("teamName",teamName);
+           // var teams = context.Teams.FromSqlRaw($"select * from Teams where Name=@teamName", teamNamePrameter);
+           // Console.WriteLine(teams.FirstOrDefault().Name);
+
+           // var teamName = Console.ReadLine();
+           //var teams = context.Teams.FromSql($"select * from Teams where Name='{teamName}'");
+           // Console.WriteLine(teams.FirstOrDefault().Name);
+
+           // var teamName = Console.ReadLine();
+           //var teams = context.Teams.FromSqlInterpolated($"select * from Teams where Name='{teamName}'");
+           // Console.WriteLine(teams.FirstOrDefault().Name);
+
+            var success= context.Database.ExecuteSqlInterpolated($"update Teams set name='Ereen'where id =5");
+            #endregion
 
         }
 
