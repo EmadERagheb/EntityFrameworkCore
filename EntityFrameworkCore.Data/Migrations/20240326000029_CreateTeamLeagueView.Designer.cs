@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCore.Data.Migrations
 {
     [DbContext(typeof(FootballLeageDbcontext))]
-    [Migration("20240325231655_CreateTeamLeagueView")]
+    [Migration("20240326000029_CreateTeamLeagueView")]
     partial class CreateTeamLeagueView
     {
         /// <inheritdoc />
@@ -321,6 +321,21 @@ namespace EntityFrameworkCore.Data.Migrations
                             Name = "Seba United",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("EntityFrameworkCore.Domain.TeamLeagueView", b =>
+                {
+                    b.Property<string>("LeagueName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("VW_TeamAndLeagues", (string)null);
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.Domain.Match", b =>

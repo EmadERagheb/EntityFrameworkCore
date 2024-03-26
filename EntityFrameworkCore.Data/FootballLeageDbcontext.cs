@@ -27,9 +27,10 @@ namespace EntityFrameworkCore.Data
         public DbSet<Match> Matchs { get; set; }
         public DbSet<League> Leagues { get; set; }
 
+        public DbSet<TeamLeagueView> TeamLeagueView { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-          modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

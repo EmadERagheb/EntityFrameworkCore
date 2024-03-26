@@ -320,6 +320,21 @@ namespace EntityFrameworkCore.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EntityFrameworkCore.Domain.TeamLeagueView", b =>
+                {
+                    b.Property<string>("LeagueName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("VW_TeamAndLeagues", (string)null);
+                });
+
             modelBuilder.Entity("EntityFrameworkCore.Domain.Match", b =>
                 {
                     b.HasOne("EntityFrameworkCore.Domain.Team", "AwayTeam")

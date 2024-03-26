@@ -17,10 +17,12 @@ namespace EntityFrameworkCore.Data.Migrations
 	                                        where l.Id=t.LeagueId");
         }
 
+
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("drop view VW_TeamAndLeagues");
+            migrationBuilder.Sql("Drop view VW_TeamAndLeagues");
         }
     }
 }
+
