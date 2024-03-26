@@ -36,5 +36,23 @@ namespace EntityFrameworkCore.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries<BaseDomainModel>().Where(q => q.State == EntityState.Added || q.State == EntityState.Modified);
+            foreach (var entry in entries)
+            {
+                entry.Entity.UpdatedDate = DateTime.UtcNow;
+                entry.Entity.UpdatedBy = "Emad Eid Ragheb";
+                if(entry.State== EntityState.Added)
+                {
+                entry.Entity.CreatedDate = DateTime.UtcNow;
+                    entry.Entity.CreatedBy = "Ereen";
+
+                }
+
+
+            }
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

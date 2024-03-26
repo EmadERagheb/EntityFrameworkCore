@@ -2,6 +2,7 @@
 using EntityFrameworkCore.Domain;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EntityFrameworkCore.ConsoleApp
 {
@@ -30,7 +31,19 @@ namespace EntityFrameworkCore.ConsoleApp
     {
         static async Task Main(string[] args)
         {
-            //using FootballLeageDbcontext context = new FootballLeageDbcontext();
+            IConfigurationRoot configuration= new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(@"F:\MyWork\EF Remmber\EntityFrameworkCore\EntityFrameworkCore.WebAPIApp\appsettings.json")
+                .Build();
+            var optionBuilder = new DbContextOptionsBuilder<FootballLeageDbcontext>();
+            optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+                .LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information)
+                
+                ;
+            using FootballLeageDbcontext context = new FootballLeageDbcontext(optionBuilder.Options);
+
             #region LINQ Queries
 
             //GetAllTeams(context);
@@ -207,10 +220,26 @@ namespace EntityFrameworkCore.ConsoleApp
             #endregion
             //var team= context.Teams.AsEnumerable()
             //Console.WriteLine(team.Name);
+            #region Overriding SaveChange 
+             await InsertCoach(context);
+            
+            #endregion
 
         }
 
+        static async Task InsertCoach(FootballLeageDbcontext context)
+        {
+            var Coach = new Coach()
+            {
+                Name = "Messi"
 
+            };
+
+            context.Add(Coach);
+          await  context.SaveChangesAsync();
+
+
+        }
 
 
         static async Task InsertMaches(FootballLeageDbcontext context)
