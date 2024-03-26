@@ -141,15 +141,15 @@ namespace EntityFrameworkCore.ConsoleApp
             #endregion
             #region Lazy Loading
 
-            //foreach (var league in  context.Leagues)
-            //{
-            //    //Console.WriteLine($"{league.Name}");
-            //    foreach (var team in league.Teams)
-            //    {
+            foreach (var league in context.Leagues)
+            {
+                //Console.WriteLine($"{league.Name}");
+                foreach (var team in league.Teams)
+                {
 
-            //        Console.WriteLine(team.Name);
-            //    }
-            //}
+                    Console.WriteLine(team.Name);
+                }
+            }
             #endregion
             #region MyRegion
             //await InsertMaches(context);
@@ -190,20 +190,20 @@ namespace EntityFrameworkCore.ConsoleApp
             //}
             #endregion
             #region Sql Queries
-           //var teamName= Console.ReadLine();
-           // var teamNamePrameter = new SqlParameter("teamName",teamName);
-           // var teams = context.Teams.FromSqlRaw($"select * from Teams where Name=@teamName", teamNamePrameter);
-           // Console.WriteLine(teams.FirstOrDefault().Name);
+            //var teamName= Console.ReadLine();
+            // var teamNamePrameter = new SqlParameter("teamName",teamName);
+            // var teams = context.Teams.FromSqlRaw($"select * from Teams where Name=@teamName", teamNamePrameter);
+            // Console.WriteLine(teams.FirstOrDefault().Name);
 
-           // var teamName = Console.ReadLine();
-           //var teams = context.Teams.FromSql($"select * from Teams where Name='{teamName}'");
-           // Console.WriteLine(teams.FirstOrDefault().Name);
+            // var teamName = Console.ReadLine();
+            //var teams = context.Teams.FromSql($"select * from Teams where Name='{teamName}'");
+            // Console.WriteLine(teams.FirstOrDefault().Name);
 
-           // var teamName = Console.ReadLine();
-           //var teams = context.Teams.FromSqlInterpolated($"select * from Teams where Name='{teamName}'");
-           // Console.WriteLine(teams.FirstOrDefault().Name);
+            // var teamName = Console.ReadLine();
+            //var teams = context.Teams.FromSqlInterpolated($"select * from Teams where Name='{teamName}'");
+            // Console.WriteLine(teams.FirstOrDefault().Name);
 
-            var success= context.Database.ExecuteSqlInterpolated($"update Teams set name='Ereen'where id =5");
+            //var success= context.Database.ExecuteSqlInterpolated($"update Teams set name='Ereen'where id =5");
             #endregion
 
         }
