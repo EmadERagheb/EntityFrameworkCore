@@ -7,20 +7,24 @@ namespace EntityFrameworkCore.Data
 {
     public class FootballLeageDbcontext : DbContext
     {
-        //public FootballLeageDbcontext(DbContextOptions<FootballLeageDbcontext>options):base(options)
-        //{
-
-        //}
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public FootballLeageDbcontext(DbContextOptions<FootballLeageDbcontext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Data Source=Emad;Initial Catalog=FootballLeague;Integrated Security=True;Encrypt=True;Trust Server Certificate=True")
-               //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-               .UseLazyLoadingProxies()
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableDetailedErrors()
-                .EnableSensitiveDataLogging();
+
         }
+        #region ConsoleApplication Configurations
+        //public FootballLeageDbcontext()
+        //{
+        //}
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Data Source=Emad;Initial Catalog=FootballLeague;Integrated Security=True;Encrypt=True;Trust Server Certificate=True")
+        //       //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+        //       .UseLazyLoadingProxies()
+        //        .LogTo(Console.WriteLine, LogLevel.Information)
+        //        .EnableDetailedErrors()
+        //        .EnableSensitiveDataLogging();
+        //}
+        #endregion
         public DbSet<Team> Teams { get; set; }
 
         public DbSet<Coach> Coachs { get; set; }
