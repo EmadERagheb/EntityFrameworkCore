@@ -1,6 +1,5 @@
 ﻿using EntityFrameworkCore.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace EntityFrameworkCore.Data
@@ -43,9 +42,9 @@ namespace EntityFrameworkCore.Data
             {
                 entry.Entity.UpdatedDate = DateTime.UtcNow;
                 entry.Entity.UpdatedBy = "Emad Eid Ragheb";
-                if(entry.State== EntityState.Added)
+                if (entry.State == EntityState.Added)
                 {
-                entry.Entity.CreatedDate = DateTime.UtcNow;
+                    entry.Entity.CreatedDate = DateTime.UtcNow;
                     entry.Entity.CreatedBy = "Ereen";
 
                 }
@@ -53,6 +52,11 @@ namespace EntityFrameworkCore.Data
 
             }
             return base.SaveChangesAsync(cancellationToken);
+        }
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<string>().HaveMaxLength(200);
+            configurationBuilder.Properties<decimal>().HavePrecision(16, 5);
         }
     }
 }

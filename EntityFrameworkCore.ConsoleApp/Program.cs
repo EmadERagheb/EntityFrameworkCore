@@ -1,6 +1,5 @@
 ﻿using EntityFrameworkCore.Data;
 using EntityFrameworkCore.Domain;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -18,20 +17,20 @@ namespace EntityFrameworkCore.ConsoleApp
         public int TeamId { get; set; }
         public string TeamName { get; set; }
 
-        public string CoachName {  get; set; }
-        public int TotalHomeScore {  get; set; }
+        public string CoachName { get; set; }
+        public int TotalHomeScore { get; set; }
 
         public int TotalAwayScore { get; set; }
         public override string ToString()
         => $"{{TeamId:{TeamId}, TeamName:{TeamName}, CoachName:{CoachName}, TotalAwayScore:{TotalAwayScore}, TotalHomeScore:{TotalHomeScore} }}";
-           
-        
+
+
     }
     internal class Program
     {
         static async Task Main(string[] args)
         {
-            IConfigurationRoot configuration= new ConfigurationBuilder()
+            IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(@"F:\MyWork\EF Remmber\EntityFrameworkCore\EntityFrameworkCore.WebAPIApp\appsettings.json")
                 .Build();
@@ -39,8 +38,8 @@ namespace EntityFrameworkCore.ConsoleApp
             optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
-                .LogTo(Console.WriteLine,Microsoft.Extensions.Logging.LogLevel.Information)
-                
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+
                 ;
             using FootballLeageDbcontext context = new FootballLeageDbcontext(optionBuilder.Options);
 
@@ -224,21 +223,64 @@ namespace EntityFrameworkCore.ConsoleApp
             //await InsertCoach(context);
 
             #endregion
-            var HistoryTeam = await context.Teams.TemporalAll()
-                .Where(q=>q.Id==5)
-                .Select(q=> new
-                {
-                    Name=q.Name,
-                    ValueFrom=EF.Property<DateTime>(q, "PeriodStart"),
-                    ValueTo = EF.Property<DateTime>(q, "PeriodEnd")
-                })
-                .ToListAsync();
 
-                foreach (var team in HistoryTeam)
+            #region Temporal Tables
+            var HistoryTeam = await context.Teams.TemporalAll()
+                  .Where(q => q.Id == 5)
+                  .Select(q => new
+                  {
+                      Name = q.Name,
+                      ValueFrom = EF.Property<DateTime>(q, "PeriodStart"),
+                      ValueTo = EF.Property<DateTime>(q, "PeriodEnd")
+                  })
+                  .ToListAsync();
+
+            foreach (var team in HistoryTeam)
             {
                 Console.WriteLine($"{team.Name} |   From    {team.ValueFrom}    |   To  {team.ValueTo}");
             }
+            #endregion
+
+            #region Transactions
+            var tr = context.Database.BeginTransaction();
+
+            var league = new League
+            {
+                Name = "Transaction League",
+            };
+            await context.AddAsync(league);
+            await context.SaveChangesAsync();
+            tr.CreateSavepoint("CreateLeague");
+            var coach = new Coach()
+            {
+                Name = "Transaction Coach",
+            };
+            await context.AddAsync(coach);
+            await context.SaveChangesAsync();
+            var teams = new List<Team>()
+            {
+                new Team
+                {
+                    Name="Transaction Team",
+                    Coach=coach,
+                    League=league
+                }
+            };
+            await context.AddRangeAsync(teams);
+            await context.SaveChangesAsync();
+            try
+            {
+                tr.Commit();
+                
+            }
+            catch (Exception)
+            {
+                tr.RollbackToSavepoint("CreateLeague");
+                throw;
+            }
+            #endregion
         }
+
 
         static async Task InsertCoach(FootballLeageDbcontext context)
         {
@@ -249,7 +291,7 @@ namespace EntityFrameworkCore.ConsoleApp
             };
 
             context.Add(Coach);
-          await  context.SaveChangesAsync();
+            await context.SaveChangesAsync();
 
 
         }
@@ -297,8 +339,8 @@ namespace EntityFrameworkCore.ConsoleApp
 
             };
 
-           await context.Matchs.AddRangeAsync(M01,M02, M03,M04);
-           await context.SaveChangesAsync();
+            await context.Matchs.AddRangeAsync(M01, M02, M03, M04);
+            await context.SaveChangesAsync();
 
         }
 
