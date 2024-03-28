@@ -10,6 +10,7 @@ namespace EntityFrameworkCore.Data.Configrations
 
         public void Configure(EntityTypeBuilder<Team> builder)
         {
+            builder.HasQueryFilter(q => q.IsDeleted==false);
             builder.HasIndex(x => x.Name).IsUnique();
             builder.HasMany(t=>t.HomeTeamMatches)
                 .WithOne(m=>m.HomeTeam).HasForeignKey(m=>m.HomeTeamId)
@@ -17,6 +18,7 @@ namespace EntityFrameworkCore.Data.Configrations
             builder.HasMany(t=>t.AwayTeamMatches)
                 .WithOne(m=>m.AwayTeam).HasForeignKey(m=>m.AwayTeamId)
                 .IsRequired().OnDelete(DeleteBehavior.Restrict);
+            builder.ToTable("Teams", q => q.IsTemporal());
             builder.HasData(new TeamList().Teams);
         }
     }

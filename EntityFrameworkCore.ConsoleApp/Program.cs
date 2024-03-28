@@ -1,7 +1,7 @@
 ﻿using EntityFrameworkCore.Data;
 using EntityFrameworkCore.Domain;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EntityFrameworkCore.ConsoleApp
 {
@@ -17,20 +17,36 @@ namespace EntityFrameworkCore.ConsoleApp
         public int TeamId { get; set; }
         public string TeamName { get; set; }
 
-        public string CoachName {  get; set; }
-        public int TotalHomeScore {  get; set; }
+        public string CoachName { get; set; }
+        public int TotalHomeScore { get; set; }
 
         public int TotalAwayScore { get; set; }
         public override string ToString()
         => $"{{TeamId:{TeamId}, TeamName:{TeamName}, CoachName:{CoachName}, TotalAwayScore:{TotalAwayScore}, TotalHomeScore:{TotalHomeScore} }}";
-           
-        
+
+
     }
     internal class Program
     {
         static async Task Main(string[] args)
         {
-            //using FootballLeageDbcontext context = new FootballLeageDbcontext();
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(@"F:\MyWork\EF Remmber\EntityFrameworkCore\EntityFrameworkCore.WebAPIApp\appsettings.json")
+                .Build();
+            var optionBuilder = new DbContextOptionsBuilder<FootballLeageDbcontext>();
+            optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), option =>
+            {
+                option.CommandTimeout(30);
+                option.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(5), errorNumbersToAdd: null);
+            })
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+
+                ;
+            using FootballLeageDbcontext context = new FootballLeageDbcontext(optionBuilder.Options);
+
             #region LINQ Queries
 
             //GetAllTeams(context);
@@ -207,10 +223,119 @@ namespace EntityFrameworkCore.ConsoleApp
             #endregion
             //var team= context.Teams.AsEnumerable()
             //Console.WriteLine(team.Name);
+            #region Overriding SaveChange 
+            //await InsertCoach(context);
+
+            #endregion
+            #region Temporal Tables
+            //var HistoryTeam = await context.Teams.TemporalAll()
+            //      .Where(q => q.Id == 5)
+            //      .Select(q => new
+            //      {
+            //          Name = q.Name,
+            //          ValueFrom = EF.Property<DateTime>(q, "PeriodStart"),
+            //          ValueTo = EF.Property<DateTime>(q, "PeriodEnd")
+            //      })
+            //      .ToListAsync();
+
+            //foreach (var team in HistoryTeam)
+            //{
+            //    Console.WriteLine($"{team.Name} |   From    {team.ValueFrom}    |   To  {team.ValueTo}");
+            //}
+            #endregion
+            #region Transactions
+            //var tr = context.Database.BeginTransaction();
+            //var league = new League
+            //{
+            //    Name = "Transaction League",
+            //};
+            //await context.AddAsync(league);
+            //await context.SaveChangesAsync();
+            //tr.CreateSavepoint("CreateLeague");
+            //var coach = new Coach()
+            //{
+            //    Name = "Transaction Coach",
+            //};
+            //await context.AddAsync(coach);
+            //await context.SaveChangesAsync();
+            //var teams = new List<Team>()
+            //{
+            //    new Team
+            //    {
+            //        Name="Transaction Team",
+            //        Coach=coach,
+            //        League=league
+            //    }
+            //};
+            //await context.AddRangeAsync(teams);
+            //await context.SaveChangesAsync();
+            //try
+            //{
+            //    tr.Commit();
+
+            //}
+            //catch (Exception)
+            //{
+            //    tr.RollbackToSavepoint("CreateLeague");
+            //    throw;
+            //}
+            #endregion
+            #region Concurrency
+            //var team = context.Coachs.Find(1);
+            //team.Name = "Concurrence check";
+            //try
+            //{
+            //     //context.Update(team); 
+            //    await context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //} 
+            #endregion
+            #region Query Filter
+            //var team = context.Teams.Find(3);
+            //team.IsDeleted = true;
+            //Console.WriteLine(team.Name );
+            //Console.WriteLine("******************");
+            //var teams = await context.Teams.ToListAsync();
+            //foreach (var item in teams)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+            //await context.SaveChangesAsync();
+            //Console.WriteLine("******************");
+            // teams = await context.Teams.ToListAsync();
+            //foreach (var item in teams)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}      
+            //Console.WriteLine("******************");
+            //teams = await context.Teams.IgnoreQueryFilters().ToListAsync();
+            //foreach (var item in teams)
+            //{
+            //    Console.WriteLine(item.Name);
+            //} 
+            #endregion
+
+
 
         }
 
 
+        static async Task InsertCoach(FootballLeageDbcontext context)
+        {
+            var Coach = new Coach()
+            {
+                Name = "Messi"
+
+            };
+
+            context.Add(Coach);
+            await context.SaveChangesAsync();
+
+
+        }
 
 
         static async Task InsertMaches(FootballLeageDbcontext context)
@@ -255,8 +380,8 @@ namespace EntityFrameworkCore.ConsoleApp
 
             };
 
-           await context.Matchs.AddRangeAsync(M01,M02, M03,M04);
-           await context.SaveChangesAsync();
+            await context.Matchs.AddRangeAsync(M01, M02, M03, M04);
+            await context.SaveChangesAsync();
 
         }
 

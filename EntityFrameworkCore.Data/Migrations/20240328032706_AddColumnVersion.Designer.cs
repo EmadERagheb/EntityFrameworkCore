@@ -4,6 +4,7 @@ using EntityFrameworkCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCore.Data.Migrations
 {
     [DbContext(typeof(FootballLeageDbcontext))]
-    partial class FootballLeageDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20240328032706_AddColumnVersion")]
+    partial class AddColumnVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +39,6 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -65,7 +65,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Emad",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -74,7 +73,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Mama",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -83,7 +81,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 3,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Remon",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -92,7 +89,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 4,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Morkso",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -101,7 +97,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 5,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Baba",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -110,7 +105,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 6,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Mina",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -119,7 +113,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 7,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Kera",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -128,7 +121,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 8,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Fady",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -149,9 +141,6 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -178,7 +167,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Jamica Premiere League ",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -187,7 +175,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 2,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "English Premier League",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -196,7 +183,6 @@ namespace EntityFrameworkCore.Data.Migrations
                         {
                             Id = 3,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "La Liga",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -232,9 +218,6 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.Property<int>("HomeTeamScore")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<decimal>("TicketPrice")
                         .HasPrecision(16, 5)
@@ -277,9 +260,6 @@ namespace EntityFrameworkCore.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("LeagueId")
                         .HasColumnType("int");
@@ -339,7 +319,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 1,
                             CoachId = 1,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Tivoli Garden F.C.",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -349,7 +328,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 2,
                             CoachId = 2,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Waterhourse  F.C.",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -359,7 +337,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 3,
                             CoachId = 3,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Humble Lions F.C.",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -369,7 +346,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 4,
                             CoachId = 4,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Chelsea F.C.",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -379,7 +355,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 5,
                             CoachId = 5,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Real Madrid ",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -389,7 +364,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 6,
                             CoachId = 6,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Inter Milan",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -399,7 +373,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 7,
                             CoachId = 7,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Inter Miami",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
@@ -409,7 +382,6 @@ namespace EntityFrameworkCore.Data.Migrations
                             Id = 8,
                             CoachId = 8,
                             CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
                             Name = "Seba United",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Version = new Guid("00000000-0000-0000-0000-000000000000")
