@@ -59,5 +59,6 @@ namespace EntityFrameworkCore.Data
             configurationBuilder.Properties<string>().HaveMaxLength(200);
             configurationBuilder.Properties<decimal>().HavePrecision(16, 5);
         }
+        
     }
 }

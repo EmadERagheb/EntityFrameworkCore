@@ -276,17 +276,45 @@ namespace EntityFrameworkCore.ConsoleApp
             //    throw;
             //}
             #endregion
-            var team = context.Coachs.Find(1);
-            team.Name = "Concurrence check";
-            try
-            {
-                 //context.Update(team); 
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            #region Concurrency
+            //var team = context.Coachs.Find(1);
+            //team.Name = "Concurrence check";
+            //try
+            //{
+            //     //context.Update(team); 
+            //    await context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //} 
+            #endregion
+            #region Query Filter
+            //var team = context.Teams.Find(3);
+            //team.IsDeleted = true;
+            //Console.WriteLine(team.Name );
+            //Console.WriteLine("******************");
+            //var teams = await context.Teams.ToListAsync();
+            //foreach (var item in teams)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+            //await context.SaveChangesAsync();
+            //Console.WriteLine("******************");
+            // teams = await context.Teams.ToListAsync();
+            //foreach (var item in teams)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}      
+            //Console.WriteLine("******************");
+            //teams = await context.Teams.IgnoreQueryFilters().ToListAsync();
+            //foreach (var item in teams)
+            //{
+            //    Console.WriteLine(item.Name);
+            //} 
+            #endregion
+
+
 
         }
 

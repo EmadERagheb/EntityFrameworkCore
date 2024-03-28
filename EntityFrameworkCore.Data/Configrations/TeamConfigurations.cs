@@ -10,6 +10,7 @@ namespace EntityFrameworkCore.Data.Configrations
 
         public void Configure(EntityTypeBuilder<Team> builder)
         {
+            builder.HasQueryFilter(q => q.IsDeleted==false);
             builder.HasIndex(x => x.Name).IsUnique();
             builder.HasMany(t=>t.HomeTeamMatches)
                 .WithOne(m=>m.HomeTeam).HasForeignKey(m=>m.HomeTeamId)
