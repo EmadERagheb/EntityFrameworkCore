@@ -223,62 +223,71 @@ namespace EntityFrameworkCore.ConsoleApp
             //await InsertCoach(context);
 
             #endregion
-
             #region Temporal Tables
-            var HistoryTeam = await context.Teams.TemporalAll()
-                  .Where(q => q.Id == 5)
-                  .Select(q => new
-                  {
-                      Name = q.Name,
-                      ValueFrom = EF.Property<DateTime>(q, "PeriodStart"),
-                      ValueTo = EF.Property<DateTime>(q, "PeriodEnd")
-                  })
-                  .ToListAsync();
+            //var HistoryTeam = await context.Teams.TemporalAll()
+            //      .Where(q => q.Id == 5)
+            //      .Select(q => new
+            //      {
+            //          Name = q.Name,
+            //          ValueFrom = EF.Property<DateTime>(q, "PeriodStart"),
+            //          ValueTo = EF.Property<DateTime>(q, "PeriodEnd")
+            //      })
+            //      .ToListAsync();
 
-            foreach (var team in HistoryTeam)
-            {
-                Console.WriteLine($"{team.Name} |   From    {team.ValueFrom}    |   To  {team.ValueTo}");
-            }
+            //foreach (var team in HistoryTeam)
+            //{
+            //    Console.WriteLine($"{team.Name} |   From    {team.ValueFrom}    |   To  {team.ValueTo}");
+            //}
             #endregion
-
             #region Transactions
-            var tr = context.Database.BeginTransaction();
+            //var tr = context.Database.BeginTransaction();
+            //var league = new League
+            //{
+            //    Name = "Transaction League",
+            //};
+            //await context.AddAsync(league);
+            //await context.SaveChangesAsync();
+            //tr.CreateSavepoint("CreateLeague");
+            //var coach = new Coach()
+            //{
+            //    Name = "Transaction Coach",
+            //};
+            //await context.AddAsync(coach);
+            //await context.SaveChangesAsync();
+            //var teams = new List<Team>()
+            //{
+            //    new Team
+            //    {
+            //        Name="Transaction Team",
+            //        Coach=coach,
+            //        League=league
+            //    }
+            //};
+            //await context.AddRangeAsync(teams);
+            //await context.SaveChangesAsync();
+            //try
+            //{
+            //    tr.Commit();
 
-            var league = new League
-            {
-                Name = "Transaction League",
-            };
-            await context.AddAsync(league);
-            await context.SaveChangesAsync();
-            tr.CreateSavepoint("CreateLeague");
-            var coach = new Coach()
-            {
-                Name = "Transaction Coach",
-            };
-            await context.AddAsync(coach);
-            await context.SaveChangesAsync();
-            var teams = new List<Team>()
-            {
-                new Team
-                {
-                    Name="Transaction Team",
-                    Coach=coach,
-                    League=league
-                }
-            };
-            await context.AddRangeAsync(teams);
-            await context.SaveChangesAsync();
+            //}
+            //catch (Exception)
+            //{
+            //    tr.RollbackToSavepoint("CreateLeague");
+            //    throw;
+            //}
+            #endregion
+            var team = context.Coachs.Find(1);
+            team.Name = "Concurrence check";
             try
             {
-                tr.Commit();
-                
+                 //context.Update(team); 
+                await context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (DbUpdateConcurrencyException e)
             {
-                tr.RollbackToSavepoint("CreateLeague");
-                throw;
+                Console.WriteLine(e.Message);
             }
-            #endregion
+
         }
 
 

@@ -40,6 +40,7 @@ namespace EntityFrameworkCore.Data
             var entries = ChangeTracker.Entries<BaseDomainModel>().Where(q => q.State == EntityState.Added || q.State == EntityState.Modified);
             foreach (var entry in entries)
             {
+                entry.Entity.Version = Guid.NewGuid();
                 entry.Entity.UpdatedDate = DateTime.UtcNow;
                 entry.Entity.UpdatedBy = "Emad Eid Ragheb";
                 if (entry.State == EntityState.Added)
