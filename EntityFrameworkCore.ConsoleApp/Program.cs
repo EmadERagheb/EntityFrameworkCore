@@ -35,7 +35,11 @@ namespace EntityFrameworkCore.ConsoleApp
                 .AddJsonFile(@"F:\MyWork\EF Remmber\EntityFrameworkCore\EntityFrameworkCore.WebAPIApp\appsettings.json")
                 .Build();
             var optionBuilder = new DbContextOptionsBuilder<FootballLeageDbcontext>();
-            optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+            optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), option =>
+            {
+                option.CommandTimeout(30);
+                option.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(5), errorNumbersToAdd: null);
+            })
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors()
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
